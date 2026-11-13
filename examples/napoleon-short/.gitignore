@@ -1,0 +1,4 @@
+node_modules/
+*.wav
+output/*.png
+output/video.mp4
