@@ -1,0 +1,77 @@
+<?svml using="@hypit/markup@1"?>
+<svml>
+  <import as="assets" source="./assets.svml"/>
+  <import as="mediaop" from="@hypit/media-operations@1"/>
+  <import as="time" from="@hypit/timeline-author@1"/>
+  <import as="tsar" from="@example/tsar-scenes@1"/>
+  <import as="audio" from="@hypit/audio-track@1"/>
+  <import as="film" from="@hypit/film@1"/>
+  <import as="html" from="@hypit/html-video@1"/>
+  <import as="look" source="./composition.svs"/>
+
+  <!-- Prepared audio: narration, music bed and synthesized effects -->
+  <mediaop:Normalize id="n1-media" source={assets.narration-1} clock={assets.clock} video="none" audio="default" span-authority="audio"/>
+  <mediaop:Normalize id="n2-media" source={assets.narration-2} clock={assets.clock} video="none" audio="default" span-authority="audio"/>
+  <mediaop:Normalize id="n3-media" source={assets.narration-3} clock={assets.clock} video="none" audio="default" span-authority="audio"/>
+  <mediaop:Normalize id="n4-media" source={assets.narration-4} clock={assets.clock} video="none" audio="default" span-authority="audio"/>
+  <mediaop:Normalize id="n5-media" source={assets.narration-5} clock={assets.clock} video="none" audio="default" span-authority="audio"/>
+  <mediaop:Normalize id="n6-media" source={assets.narration-6} clock={assets.clock} video="none" audio="default" span-authority="audio"/>
+  <mediaop:Normalize id="n7-media" source={assets.narration-7} clock={assets.clock} video="none" audio="default" span-authority="audio"/>
+  <mediaop:Normalize id="music-media" source={assets.music} clock={assets.clock} video="none" audio="default" span-authority="audio"/>
+  <mediaop:Normalize id="boom-media" source={assets.sfx-boom} clock={assets.clock} video="none" audio="default" span-authority="audio"/>
+  <mediaop:Normalize id="alarm-media" source={assets.sfx-alarm} clock={assets.clock} video="none" audio="default" span-authority="audio"/>
+  <mediaop:Normalize id="puff-media" source={assets.sfx-puff} clock={assets.clock} video="none" audio="default" span-authority="audio"/>
+
+  <!-- One window per narration segment; scenes share these windows -->
+  <time:Timeline id="program" clock={assets.clock} end="s7.end+2s">
+    <time:Window id="s1" from="start" for={n1-media.extent}/>
+    <time:Window id="s2" from="s1.end+0.4s" for={n2-media.extent}/>
+    <time:Window id="s3" from="s2.end+0.4s" for={n3-media.extent}/>
+    <time:Window id="s4" from="s3.end+0.4s" for={n4-media.extent}/>
+    <time:Window id="s5" from="s4.end+0.4s" for={n5-media.extent}/>
+    <time:Window id="s6" from="s5.end+0.4s" for={n6-media.extent}/>
+    <time:Window id="s7" from="s6.end+0.4s" for={n7-media.extent}/>
+    <time:Window id="boom" from="s4.start" for="3s"/>
+    <time:Window id="alarm" from="s6.start" for="2s"/>
+    <time:Window id="puff" from="s5.end-1.5s" for="1.5s"/>
+  </time:Timeline>
+
+  <!-- Authored scenes with phrase captions -->
+  <tsar:Scenes id="scenes" timeline={program.timeline} within={assets.canvas.bounds} font={assets.font} during={program.window} caption-size="54">
+    <tsar:Scene id="s1" kind="hook" during={program.s1} caption="¿Qué pasaría si detonaras la bomba más poderosa de la historia en el fondo de la Fosa de las Marianas? || Todos imaginan un tsunami gigante borrando ciudades enteras."/>
+    <tsar:Scene id="s2" kind="zar" during={program.s2} caption="Pero lo que pasa de verdad es mucho más raro. || La bomba es la bomba del Zar, 50 megatones, más de 3000 veces Hiroshima."/>
+    <tsar:Scene id="s3" kind="pressure" during={program.s3} caption="La bajamos 11 km hasta el punto más hondo del océano. || Ahí abajo, el agua aprieta 1000 veces más que el aire, como si un auto se parara sobre tu uña."/>
+    <tsar:Scene id="s4" kind="blast" during={program.s4} caption="Se detona y el agua se vuelve vapor. || Nace una burbuja de casi 1 km. || Pero la presión es tan brutal que la aplasta en menos de 2 segundos."/>
+    <tsar:Scene id="s5" kind="rebound" during={program.s5} caption="La burbuja rebota, se encoge y vuelve a crecer una y otra vez mientras sube. || Abajo, parte del fondo del mar se derrite y se vuelve vidrio. || Y los sismógrafos de todo el planeta sienten el golpe. || Y arriba, el mar se hincha, suelta una nube de vapor y ya, ni hongo ni estruendo, ni tsunami, el océano se tragó casi toda la explosión."/>
+    <tsar:Scene id="s6" kind="bravo" during={program.s6} caption="Ahora mira una bomba tres veces más chica, pero sobre una isla, Castle Bravo. || Su bola de fuego midió casi 5 km. || Se tragó 10 millones de toneladas de coral y la subió a 35 km de altura convertidos en polvo radiactivo. || En 5 horas ese polvo empezó a caer sobre islas a 177 km. || Más de 600 personas y 23 pescadores japoneses quedaron expuestos a la radiación."/>
+    <tsar:Scene id="s7" kind="finale" during={program.s7} caption="O sea, la bomba más poderosa de la historia, en el fondo del mar, haría menos daño que una tres veces más chica sobre una isla. || El agua es el mejor escudo del planeta. || Así que la próxima vez que mires el mar, pregúntate..."/>
+  </tsar:Scenes>
+
+  <!-- Voice, music and effects -->
+  <audio:Track id="voice" timeline={program.timeline}>
+    <audio:Clip id="v1" source={n1-media.media} during={program.s1}/>
+    <audio:Clip id="v2" source={n2-media.media} during={program.s2}/>
+    <audio:Clip id="v3" source={n3-media.media} during={program.s3}/>
+    <audio:Clip id="v4" source={n4-media.media} during={program.s4}/>
+    <audio:Clip id="v5" source={n5-media.media} during={program.s5}/>
+    <audio:Clip id="v6" source={n6-media.media} during={program.s6}/>
+    <audio:Clip id="v7" source={n7-media.media} during={program.s7}/>
+  </audio:Track>
+  <audio:Track id="bed" timeline={program.timeline}>
+    <audio:Clip id="music" source={music-media.media} during={program.window} gain="0.35">
+      <audio:Map target-at="start" source-at="start" rate="1" wrap-from="start" wrap-until="end"/>
+    </audio:Clip>
+    <audio:Clip id="boom" source={boom-media.media} during={program.boom} gain="0.8"/>
+    <audio:Clip id="alarm" source={alarm-media.media} during={program.alarm} gain="0.5"/>
+    <audio:Clip id="puff" source={puff-media.media} during={program.puff} gain="0.6"/>
+  </audio:Track>
+
+  <!-- Final assembly -->
+  <film:Film id="main" canvas={assets.canvas.canvas} timeline={program.timeline} appearance={look.film.main}>
+    <film:Track source={scenes.visual}/>
+    <film:Track source={voice.audio}/>
+    <film:Track source={bed.audio}/>
+  </film:Film>
+  <html:Video id="final" composition={main.composition} timeline={program.timeline}/>
+  <html:Video id="test" composition={main.composition} timeline={program.timeline} start-frame="0" end-frame-exclusive="90"/>
+</svml>

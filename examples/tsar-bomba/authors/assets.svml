@@ -1,0 +1,24 @@
+<?svml using="@hypit/markup@1"?>
+<svml>
+  <import as="media" from="@hypit/media@1"/>
+  <import as="time" from="@hypit/timeline-author@1"/>
+  <import as="spatial" from="@hypit/spatial@1"/>
+  <import as="fonts" from="@hypit/fontsource@1"/>
+
+  <media:Audio id="narration-1" src="../assets/audio/narration-01.mp3"/>
+  <media:Audio id="narration-2" src="../assets/audio/narration-02.mp3"/>
+  <media:Audio id="narration-3" src="../assets/audio/narration-03.mp3"/>
+  <media:Audio id="narration-4" src="../assets/audio/narration-04.mp3"/>
+  <media:Audio id="narration-5" src="../assets/audio/narration-05.mp3"/>
+  <media:Audio id="narration-6" src="../assets/audio/narration-06.mp3"/>
+  <media:Audio id="narration-7" src="../assets/audio/narration-07.mp3"/>
+  <media:Audio id="music" src="../assets/audio/music.mp3"/>
+  <media:Audio id="sfx-boom" src="../assets/audio/sfx-boom.wav"/>
+  <media:Audio id="sfx-alarm" src="../assets/audio/sfx-alarm.wav"/>
+  <media:Audio id="sfx-puff" src="../assets/audio/sfx-puff.wav"/>
+
+  <time:Clock id="clock" frame-rate="30"/>
+  <spatial:Canvas id="canvas" width="1080" height="1920"/>
+  <fonts:Face id="font-face" package="@fontsource-variable/inter" weight="800" style="normal"/>
+  <media:FontStack id="font" primary={font-face}/>
+</svml>
